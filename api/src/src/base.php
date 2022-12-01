@@ -8,7 +8,6 @@
  {
     /**
      * Override Endpoint intialiaise SQL Method
-     * 
      */
     protected function initialiseSQL(){
         $sql = "SELECT conference_information.name FROM conference_information;";
@@ -16,7 +15,12 @@
         $this->setParams([]); // use setParams method from Endpoint class, no params to pass in so empty array
     }
 
-    
+    /**
+     * Override Endpoint constructor
+     * as format is slightly different
+     * 
+     * @param Request $req - the http request object
+     */    
     public function __construct($req){ //overwrite constructor as adding own info
         $this->validateParams($this->endpointParams()); // make sure params are valid
         $req->validateRequestMethod(array("GET"));

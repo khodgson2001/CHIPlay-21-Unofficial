@@ -27,11 +27,7 @@ abstract class Endpoint
 
         $content = $db->executeSQL($this->sql, $this->params);
 
-        $this->setContent(array(
-            "length" => count($content),
-            "message" => "Sucess",
-            "data" => $content
-        ));
+        $this->setContent($content);
     }
 
     /**

@@ -32,5 +32,6 @@ switch ($req->getPath()) {
 }
 
 
+
 $response = $endpoint->getContent();
 echo json_encode($response);

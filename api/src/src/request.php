@@ -14,9 +14,17 @@ class Request
         $this->method = $_SERVER['REQUEST_METHOD'];
     }
  
-    public function validateRequestMethod($validMethods) {
+
+    /**
+     * Set the path of the request
+     * 
+     * @param Array $validMethods - An array of valid HTTP methods
+     * @param int $code - The HTTP status code to return
+     */
+    public function validateRequestMethod($validMethods, $code = 405) {
         if (!in_array($this->method, $validMethods)) {
             // Updated to use the ClientError endpoint
+            http_response_code($code);
             $output['message'] = "Invalid request method: ".$this->method;
             die(json_encode($output));
         }
