@@ -5,8 +5,8 @@ import Menu from './components/Menu';
 import HomePage from './components/HomePage';
 import PapersPage from './components/PapersPage';
 import AuthorsPage from './components/AuthorsPage';
-import FilteredPapers from './components/FilteredPapers';
-
+import Track from './components/Track';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -17,15 +17,16 @@ function App() {
         <Route path="/authors" element={<AuthorsPage />} />
         <Route path="/papers">
         <Route index element={<PapersPage />} />
-          <Route path="Interactivity" element={<FilteredPapers short_name = "Interactivity" />} />
-          <Route path="wip" element={<FilteredPapers short_name = "wip" />} />
-          <Route path="fullpapers" element={<FilteredPapers short_name = "fullpapers" />} />
-          <Route path="competition" element={<FilteredPapers short_name = "competition" />} />
-          <Route path="doctoral" element={<FilteredPapers short_name = "doctoral" />} />
-          <Route path="rapid" element={<FilteredPapers short_name = "rapid" />} />
+          <Route path="Interactivity" element={<Track short_name = "Interactivity" />} />
+          <Route path="wip" element={<Track short_name = "wip" />} />
+          <Route path="fullpapers" element={<Track short_name = "fullpapers" />} />
+          <Route path="competition" element={<Track short_name = "competition" />} />
+          <Route path="doctoral" element={<Track short_name = "doctoral" />} />
+          <Route path="rapid" element={<Track short_name = "rapid" />} />
         </Route>
         <Route path="*" element={<p>Not found</p>} />
       </Routes>
+    <Footer />
     </div>
   );
 }

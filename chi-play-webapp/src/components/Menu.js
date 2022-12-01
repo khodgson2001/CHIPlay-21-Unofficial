@@ -1,4 +1,3 @@
-import './Menu.css';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -9,7 +8,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 function Menu(){
 return(
     <div className='menu'>
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="dark" expand="lg" variant="dark">
    <Container>
     <Navbar.Brand href="#">React-Bootstrap</Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />

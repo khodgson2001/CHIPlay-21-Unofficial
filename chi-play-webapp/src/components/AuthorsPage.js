@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import Search from './Search';
 
 function AuthorsPage() {
     const [authors, setAuthors] = useState([]);
@@ -20,8 +21,6 @@ function AuthorsPage() {
             });
     }, []);
 
-    const onChange = (event) => setSearchTerm(event.target.value);
-
     const searchAuthors = (value) => {
         const fullname = value.first_name + " " + value.last_name; // will need to change this to include the middle name
         return fullname.toLowerCase().includes(searchTerm.toLowerCase());
@@ -34,12 +33,14 @@ function AuthorsPage() {
     </ul>
 
 
+    const searchHandler = (event) => { setSearchTerm(event) }
+
 
 
     return (
         <div>
             <h1>Authors</h1>
-            <input value={searchTerm} onChange={onChange} />
+            <Search searchTerm={searchTerm} handler={searchHandler} />            
             {loading && <p>Loading...</p>}
             {listOfAuthors}
         </div>

@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from 'react';
+import Search from './Search';
 
-function FilteredPapers(props){
+function Track(props){
 
     const [papers, setPapers] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [searchTerm, setSearchTerm] = useState('');
 
 
    
@@ -20,12 +22,16 @@ function FilteredPapers(props){
             console.log(err.message);
           });
     }, []);
+    const searchPapers = (value) => {
+        const fullname = value.title + " " + value.abstract;
+        return fullname.toLowerCase().includes(searchTerm.toLowerCase());
+    }
 
     const paperType = (value) => (value.short_name === props.short_name);
 
 const showPaperTypes = 
     <div>
-        { papers.filter(paperType).map(
+        { papers.filter(paperType).filter(searchPapers).map(
         (value, key) => <section key={key}>
         <h2>{value.title}</h2>
         <p>Paper Type: {value.short_name}</p>
@@ -33,10 +39,14 @@ const showPaperTypes =
     </section>
     )}</div>
     
+    const searchHandler = (event) => { setSearchTerm(event) }
+
     
     return (
         <div>
             <h1>Papers ({props.short_name})</h1>
+            <Search searchTerm={searchTerm} handler={searchHandler} />            
+
             {loading && <p>Loading...</p>}
             {showPaperTypes}
         </div>
@@ -45,4 +55,4 @@ const showPaperTypes =
 
 }
 
-export default FilteredPapers;
+export default Track;
