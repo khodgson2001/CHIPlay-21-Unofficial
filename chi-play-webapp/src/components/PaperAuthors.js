@@ -37,7 +37,7 @@ function PaperAuthors(props) {
 
 
     const AllAuthors = authors.map(
-        (value, key) => <span key={key}>{value.first_name} {value.last_name} </span>
+        (value, key) => <span key={key}><p>Name: {value.first_name} {value.middle_initial} {value.last_name} | {value.country}, {value.city}, {value.institution}</p></span>
     )
 
     const showDetails = () => {
@@ -51,7 +51,8 @@ function PaperAuthors(props) {
             { visible && <div>
             <p>Paper Type: {props.data.short_name}</p> 
             <p>Description: {props.data.abstract}</p>
-            <p><strong>Authors: </strong>{AllAuthors}</p>
+            <p>Award: {props.data.award ? <i>Awarded</i> : <i>No awards</i>}</p>
+            <p><strong>Authors</strong>{AllAuthors}</p>
             {loading && <p>Loading...</p>}
             </div>}
         </div>

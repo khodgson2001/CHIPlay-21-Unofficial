@@ -42,7 +42,7 @@ function PapersPage() {
             (value.award.toLowerCase() === selectValue.toLowerCase()) // if award is equal to selectValue | truthy value
             : 
             selectValue === "") // if award is false
-        || selectValue === "all" // if selectValue is equal to "all"
+        || selectValue === "all" // selectValue is equal to "all"
       );
 
     const listOfPapers = <ul>
@@ -66,7 +66,6 @@ function PapersPage() {
                 </select>
             </div>
             <Search searchTerm={searchTerm} handler={searchHandler} />
-
             {loading && <p>Loading...</p>}
             {listOfPapers}
         </div>
