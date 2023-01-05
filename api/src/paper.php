@@ -14,7 +14,6 @@ class Paper extends Endpoint
         $sql = "SELECT paper_id, title, award, abstract, track.short_name as short_name, track.name as trackName
                 FROM paper
                 JOIN track ON (track.track_id = paper.track_id)";
-        $this->setSQL($sql);
         $sqlParams = [];
  
         if (filter_has_var(INPUT_GET, 'id')) {
@@ -34,9 +33,9 @@ class Paper extends Endpoint
         
         if (filter_has_var(INPUT_GET, 'track')) {
             if (isset($where)) {
-                $where .= " AND short_name LIKE :short_name";
+                $where .= " AND short_name = :short_name";
             } else {
-                $where = " WHERE short_name LIKE :short_name";
+                $where = " WHERE short_name = :short_name";
             }
             $sqlParams['short_name'] = $_GET['track'];
         }

@@ -18,7 +18,7 @@ abstract class Endpoint
 
 
     //Endpoint constructor - queries DB
-    public function __construct()
+    public function __construct($req)
     {
         $this->validateParams($this->endpointParams()); // make sure params are valid
         $db = new Database('database/chiplay.sqlite'); //load in db using db class
@@ -36,6 +36,10 @@ abstract class Endpoint
     protected function setSql($sql)
     {
         $this->sql = $sql;
+    }
+
+    public function getSql(){
+        return $this->sql;
     }
 
     /**
@@ -58,6 +62,10 @@ abstract class Endpoint
     protected function setParams($params)
     {
         $this->params = $params;
+    }
+
+    protected function getParams(){
+        return $this->params;
     }
 
     /**

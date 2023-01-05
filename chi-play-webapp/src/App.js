@@ -7,6 +7,8 @@ import PapersPage from './components/PapersPage';
 import AuthorsPage from './components/AuthorsPage';
 import Track from './components/Track';
 import Footer from './components/Footer';
+import LocationsPage from './components/LocationsPage';
+
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function App() {
           <Route path="doctoral" element={<Track short_name = "doctoral" />} />
           <Route path="rapid" element={<Track short_name = "rapid" />} />
         </Route>
+        <Route path="/locations" element={<LocationsPage />} />
         <Route path="*" element={<p>Not found</p>} />
       </Routes>
     <Footer />

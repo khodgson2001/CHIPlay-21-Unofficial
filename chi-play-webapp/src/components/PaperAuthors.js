@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import AuthorAffiliation from './AuthorAffiliation';
 
 /**
  * PaperAuthors component
@@ -14,52 +14,88 @@ function PaperAuthors(props) {
 
     const [authors, setAuthors] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [visible, setVisible] = useState(false);
+    const [allVisible, setAllVisible] = useState(false);
+    const [readMore, setReadMore] = useState(false);
 
     function fetchAuthors() {
 
-            fetch("http://unn-w20002249.newnumyspace.co.uk/kf6012/api/authors?paper_id=" + props.data.paper_id)
-                .then(
-                    (response) => response.json()
-                )
-                .then(
-                    (json) => {
-                        setAuthors(json);
-                        setLoading(false);
-                    }
-                )
-                .catch(
-                    (e) => {
-                        console.log(e.message);
-                    }
-                );
+        fetch("http://unn-w20002249.newnumyspace.co.uk/kf6012/api/authors?paper_id=" + props.data.paper_id)
+            .then(
+                (response) => response.json()
+            )
+            .then(
+                (json) => {
+                    setAuthors(json);
+                    setLoading(false);
+                }
+            )
+            .catch(
+                (e) => {
+                    console.log(e.message);
+                }
+            );
     };
 
 
     const AllAuthors = authors.map(
-        (value, key) => <span key={key}><p>Name: {value.first_name} {value.middle_initial} {value.last_name} | {value.country}, {value.city}, {value.institution}</p></span>
+        (value, key) =>
+            <div key={key}>
+                <div>
+                    <strong>Name: </strong> 
+                    {value.first_name} {value.middle_initial} {value.last_name} | <AuthorAffiliation paper_id = {props.data.paper_id} author_id = {value.author_id}></AuthorAffiliation>
+                </div>
+            </div>
     )
 
     const showDetails = () => {
         fetchAuthors();
-        setVisible(!visible);
-      }
-      
+        setAllVisible(!allVisible);
+    }
+
+    const abstractReadMore = () => {
+        setReadMore(!readMore);
+    }
+
     return (
-        <div onClick={showDetails}>
-            <h2>{props.data.title}</h2>
-            { visible && <div>
-            <p>Paper Type: {props.data.short_name}</p> 
-            <p>Description: {props.data.abstract}</p>
-            <p>Award: {props.data.award ? <i>Awarded</i> : <i>No awards</i>}</p>
-            <p><strong>Authors</strong>{AllAuthors}</p>
-            {loading && <p>Loading...</p>}
-            </div>}
+        <div>
+            <div onClick={showDetails}>
+                <h2>
+                    {props.data.title}
+                </h2>
+            </div>
+            {allVisible && 
+            <div>
+                <div>
+                    <strong>Paper Type:</strong> {props.data.short_name}
+                </div>
+
+                <div>
+                    <strong>Abstract</strong>
+                    {readMore && <div>{props.data.abstract}</div>}
+                    
+                    <div onClick={abstractReadMore}>
+                        {!readMore && props.data.abstract.slice(0, 150) + "..."}<b> Read {readMore ? "Less" : "More"}</b>
+                    </div>
+
+                </div>
+
+                <div>
+                    <strong>Award: </strong>{props.data.award ? <i>Awarded</i> : <i>No awards</i>}
+                </div>
+
+                <div>
+                    <strong><u>Authors</u></strong>
+                    {AllAuthors}
+                </div>
+
+                {loading && <p>Loading...</p>}
+            </div>
+            }
         </div>
     )
 
 
-    
+
 }
 
 

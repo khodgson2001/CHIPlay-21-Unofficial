@@ -23,8 +23,6 @@
      */    
     public function __construct($req){ //overwrite constructor as adding own info
         $this->validateParams($this->endpointParams()); // make sure params are valid
-        $req->validateRequestMethod(array("GET"));
-
         $db = new Database('database/chiplay.sqlite'); //load in db using db class
 
         $this->initialiseSQL();

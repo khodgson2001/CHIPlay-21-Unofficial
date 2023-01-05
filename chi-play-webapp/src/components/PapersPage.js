@@ -52,20 +52,26 @@ function PapersPage() {
             </section>
         )}
     </ul>
+
+
+
     const onChangeSelect = (event) => setSelectValue(event.target.value);
     const searchHandler = (event) => { setSearchTerm(event) }
 
     return (
         <div>
             <h1>Papers</h1>
+
             <div>
-            <select value={selectValue} onChange={onChangeSelect}>
-                <option value="all">All</option>
-                <option value="true">Has Award</option>
-                <option value="">Hasn't Award</option>
+                <select value={selectValue} onChange={onChangeSelect}>
+                    <option value="all">All</option>
+                    <option value="true">Has Award</option>
+                    <option value="">Hasn't Award</option>
                 </select>
             </div>
+            
             <Search searchTerm={searchTerm} handler={searchHandler} />
+            
             {loading && <p>Loading...</p>}
             {listOfPapers}
         </div>
