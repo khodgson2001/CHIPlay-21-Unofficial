@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Search from './Search';
-import PaperAuthors from './PaperAuthors';
+import PaperInformation from './PaperInformation';
 
 function Track(props){
 
@@ -42,7 +42,7 @@ const showPaperTypes =
     <div>
         { papers.filter(paperType).filter(searchPapers).filter(selectPapers).map(
         (value, key) => <section key={key}>
-        <PaperAuthors data={value}/>
+        <PaperInformation data={value}/>
     </section>
     )}</div>
     

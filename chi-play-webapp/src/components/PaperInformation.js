@@ -4,12 +4,10 @@ import AuthorAffiliation from './AuthorAffiliation';
 /**
  * PaperAuthors component
  *
- * Illustrative answer from week 8 Q2. Using this code
- * will result in 'insufficient resources errors'.
  * 
  * @author Kieran Hodgson
  */
-function PaperAuthors(props) {
+function PaperInformation(props) {
 
 
     const [authors, setAuthors] = useState([]);
@@ -99,4 +97,4 @@ function PaperAuthors(props) {
 }
 
 
-export default PaperAuthors;
+export default PaperInformation;

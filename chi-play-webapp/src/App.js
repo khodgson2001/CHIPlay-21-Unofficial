@@ -1,5 +1,6 @@
 import './App.css';
 import { Routes, Route } from "react-router-dom";
+import { useState } from 'react';
 
 import Menu from './components/Menu';
 import HomePage from './components/HomePage';
@@ -8,9 +9,16 @@ import AuthorsPage from './components/AuthorsPage';
 import Track from './components/Track';
 import Footer from './components/Footer';
 import LocationsPage from './components/LocationsPage';
+import AdminPage from './components/AdminPage';
 
 
 function App() {
+
+  const [authenticated, setAuthenticated] = useState(false);
+  const handleAuthenticated = (isAuthenticated) => {setAuthenticated(isAuthenticated)}
+
+  
+
   return (
     <div className="App">
            <Menu />
@@ -27,6 +35,7 @@ function App() {
           <Route path="rapid" element={<Track short_name = "rapid" />} />
         </Route>
         <Route path="/locations" element={<LocationsPage />} />
+        <Route path="/admin" element={<AdminPage authenticated={authenticated} handleAuthenticated={setAuthenticated} />} />
         <Route path="*" element={<p>Not found</p>} />
       </Routes>
     <Footer />

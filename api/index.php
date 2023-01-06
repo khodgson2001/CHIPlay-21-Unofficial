@@ -1,8 +1,11 @@
 <?php
 
 header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Origin: *");
-
+header("Access-Control-Allow-Origin: *"); 
+header("Access-Control-Allow-Headers: *");
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {    
+    exit(0);
+} 
 include 'config/exceptionHandler.php';
 set_exception_handler('exceptionHandler');
 

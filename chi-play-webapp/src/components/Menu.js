@@ -25,6 +25,7 @@ return(
         <LinkContainer to="/papers/rapid"><NavDropdown.Item>Rapid Communications</NavDropdown.Item></LinkContainer>
      </NavDropdown>
       <LinkContainer to="/authors"><Nav.Link>Authors</Nav.Link></LinkContainer>
+      <LinkContainer to="/admin"><Nav.Link>Admin</Nav.Link></LinkContainer>
      </Nav>
     </Navbar.Collapse>
    </Container>

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import PaperAuthors from './PaperAuthors';
+import PaperAuthors from './PaperInformation';
 import Search from './Search';
 
 /**
- * Films page component
+ * Papers page component
  * 
  * This page will show information about all papers
  * 
