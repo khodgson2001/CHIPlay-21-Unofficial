@@ -4,25 +4,11 @@ import PaperAuthors from './PaperAuthors';
 
 function Track(props){
 
-    const [papers, setPapers] = useState([]);
-    const [loading, setLoading] = useState(true);
+
     const [searchTerm, setSearchTerm] = useState('');
     const [selectValue, setSelectValue] = useState('all');
 
-   
-    useEffect(() => {
-        fetch('http://unn-w20002249.newnumyspace.co.uk/kf6012/api/papers')
-        .then(response => response.json())
-        .then( 
-            (json) => {
-                setLoading(false);
-                setPapers(json);
-            } 
-          )
-          .catch((err) => {
-            console.log(err.message);
-          });
-    }, []);
+
     const searchPapers = (value) => {
         const fullname = value.title + " " + value.abstract;
         return fullname.toLowerCase().includes(searchTerm.toLowerCase());
@@ -40,7 +26,7 @@ function Track(props){
 
 const showPaperTypes = 
     <div>
-        { papers.filter(paperType).filter(searchPapers).filter(selectPapers).map(
+        { props.papers.filter(paperType).filter(searchPapers).filter(selectPapers).map(
         (value, key) => <section key={key}>
         <PaperAuthors data={value}/>
     </section>
@@ -62,7 +48,7 @@ const showPaperTypes =
             </div>
             <Search searchTerm={searchTerm} handler={searchHandler} />            
 
-            {loading && <p>Loading...</p>}
+            {props.loading && <p>Loading...</p>}
             {showPaperTypes}
         </div>
     )

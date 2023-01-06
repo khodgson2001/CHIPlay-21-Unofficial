@@ -11,26 +11,12 @@ import Search from './Search';
  */
 
 
-function PapersPage() {
-    const [papers, setPapers] = useState([]);
-    const [loading, setLoading] = useState(true);
+function PapersPage(props) {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectValue, setSelectValue] = useState('all');
+    console.log(1234);
+    console.log(props.papers);
 
-
-    useEffect(() => {
-        fetch('http://unn-w20002249.newnumyspace.co.uk/kf6012/api/papers')
-            .then(response => response.json())
-            .then(
-                (json) => {
-                    setLoading(false);
-                    setPapers(json);
-                }
-            )
-            .catch((err) => {
-                console.log(err.message);
-            });
-    }, []);
 
     const searchPapers = (value) => {
         const fullname = value.title + " " + value.abstract;
@@ -46,7 +32,7 @@ function PapersPage() {
       );
 
     const listOfPapers = <ul>
-        {papers.filter(searchPapers).filter(selectPapers).map(
+        {props.papers.filter(searchPapers).filter(selectPapers).map(
             (value, key) => <section key={key}>
                 <PaperAuthors data={value} />
             </section>
@@ -72,7 +58,7 @@ function PapersPage() {
             
             <Search searchTerm={searchTerm} handler={searchHandler} />
             
-            {loading && <p>Loading...</p>}
+            {props.loading && <p>Loading...</p>}
             {listOfPapers}
         </div>
     );
