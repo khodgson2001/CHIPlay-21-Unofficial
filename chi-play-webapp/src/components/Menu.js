@@ -4,13 +4,20 @@ import Navbar from 'react-bootstrap/Navbar';
 import {LinkContainer} from 'react-router-bootstrap';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
+/**
+ * Navigation Bar Component
+ * 
+ * Contains links to all parts of the web application - routes set in App.js
+ * 
+ * @author Kieran Hodgson
+ */
 
 function Menu(){
 return(
     <div className='menu'>
     <Navbar bg="dark" expand="lg" variant="dark">
    <Container>
-    <Navbar.Brand href="#">React-Bootstrap</Navbar.Brand>
+    <LinkContainer to="/"><Navbar.Brand>CHIPlay Application</Navbar.Brand></LinkContainer>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
      <Nav className="me-auto">

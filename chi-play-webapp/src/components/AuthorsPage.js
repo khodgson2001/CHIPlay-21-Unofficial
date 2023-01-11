@@ -2,6 +2,17 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import Search from './Search';
 
+/**
+ * AuthorsPage component
+ * 
+ * This component is responsible for displaying a list of authors
+ * Uses a use effect to immediatley request author data from the API
+ * and sets that to authors constant
+ * This is then filtered, mapped, and returned
+ * 
+ * @author Kieran Hodgson
+ */
+
 function AuthorsPage() {
     const [authors, setAuthors] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -21,14 +32,23 @@ function AuthorsPage() {
             });
     }, []);
 
+    /**
+     * Search the list of authors for the search term
+     */
     const searchAuthors = (value) => {
-        const fullname = value.first_name + " " + value.last_name; // will need to change this to include the middle name
+        const fullname = value.first_name + " " + value.middle_initial + " " + value.last_name;
         return fullname.toLowerCase().includes(searchTerm.toLowerCase());
     }
 
+    /**
+     * return a list of mapped authors, filtered by the search term
+     */
     const listOfAuthors = <ul>
         {authors.filter(searchAuthors).map(
-            (value, key) => <section key={key}>{value.first_name} {value.last_name}</section>
+            (value, key) =>
+                <section key={key}>
+                    {value.first_name} {value.middle_initial ? value.middle_initial : <></>} {value.last_name}
+                </section>
         )}
     </ul>
 
@@ -40,7 +60,7 @@ function AuthorsPage() {
     return (
         <div>
             <h1>Authors</h1>
-            <Search searchTerm={searchTerm} handler={searchHandler} />            
+            <Search searchTerm={searchTerm} handler={searchHandler} />
             {loading && <p>Loading...</p>}
             {listOfAuthors}
         </div>

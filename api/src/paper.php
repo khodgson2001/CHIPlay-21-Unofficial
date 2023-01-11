@@ -1,14 +1,37 @@
 <?php 
  
 /**
- * Film endpoint
+ * Papers endpoint
  * 
  * @author Kieran Hodgson
  */
 class Paper extends Endpoint
 {
     /**
-     * Updated to handle params, but with no error checking
+     * Initialise SQL method
+     * 
+     * Initialises the SQL query and parameters, the SQL query is set using the
+     * setSQL method from the Endpoint class, the parameters are set using the
+     * setParams method from the Endpoint class
+     * 
+     * If the id param is set, the query is modified to select the paper with the
+     * id specified in the id param
+     * 
+     * If the track param is set, the query is modified to select the papers
+     * that have are on the same track as the specified track param
+     * 
+     * If the search param is set, the query is modified to select the papers
+     * that have the search param in the title or abstract
+     * 
+     * @var string $sql
+     * @var array $sqlParams
+     * @var string $where
+     * @var string $search
+     * 
+     * @throws ClientErrorException when the id param is not an integer
+     * 
+     * @return void
+     * 
      */
     protected function initialiseSQL() {
         $sql = "SELECT paper_id, title, award, abstract, track.short_name as short_name, track.name as trackName
@@ -18,9 +41,7 @@ class Paper extends Endpoint
  
         if (filter_has_var(INPUT_GET, 'id')) {
             if (!filter_var($_GET['id'],FILTER_VALIDATE_INT)) {
-                http_response_code(400);
-                $output['message'] = "Value of id must be an integer";
-                die(json_encode($output));
+                throw new ClientErrorException("Value of id must be an integer", 400);
             }
             if (isset($where)) {
                 $where .= " AND paper_id = :paper_id";
@@ -54,7 +75,9 @@ class Paper extends Endpoint
         if (isset($where)) {
             $sql .= $where;
         }
- 
+        
+        
+        $sql = $this->sqlRmvCase($sql);
         $this->setSQL($sql);
         $this->setParams($sqlParams);
     }
@@ -63,6 +86,6 @@ class Paper extends Endpoint
      * add as items of array
      */
     protected function endpointParams() {
-        return ['id','track','search', 'award'];
+        return ['id','track','search'];
      }
 }

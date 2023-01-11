@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import AuthorAffiliation from './AuthorAffiliation';
 
 /**
- * PaperAuthors component
+ * Paper Information component
  *
+ * Responsible for returning a list of papers, and the authors associated to those papers
  * 
  * @author Kieran Hodgson
  */
@@ -16,7 +17,6 @@ function PaperInformation(props) {
     const [readMore, setReadMore] = useState(false);
 
     function fetchAuthors() {
-
         fetch("http://unn-w20002249.newnumyspace.co.uk/kf6012/api/authors?paper_id=" + props.data.paper_id)
             .then(
                 (response) => response.json()
@@ -34,13 +34,16 @@ function PaperInformation(props) {
             );
     };
 
-
+    /**
+     * returns a list of mapped authors
+     * has author affiliation component which takes in the paper id and author id, and then returns the authors location when creating paper
+     */
     const AllAuthors = authors.map(
         (value, key) =>
             <div key={key}>
                 <div>
                     <strong>Name: </strong> 
-                    {value.first_name} {value.middle_initial} {value.last_name} | <AuthorAffiliation paper_id = {props.data.paper_id} author_id = {value.author_id}></AuthorAffiliation>
+                    {value.first_name} {value.middle_initial} {value.last_name} | <AuthorAffiliation paper_id={props.data.paper_id} author_id={value.author_id}></AuthorAffiliation>
                 </div>
             </div>
     )
@@ -61,8 +64,10 @@ function PaperInformation(props) {
                     {props.data.title}
                 </h2>
             </div>
-            {allVisible && 
+
+        {allVisible && 
             <div>
+
                 <div>
                     <strong>Paper Type:</strong> {props.data.short_name}
                 </div>
@@ -72,7 +77,7 @@ function PaperInformation(props) {
                     {readMore && <div>{props.data.abstract}</div>}
                     
                     <div onClick={abstractReadMore}>
-                        {!readMore && props.data.abstract.slice(0, 150) + "..."}<b> Read {readMore ? "Less" : "More"}</b>
+                        {!readMore && props.data.abstract.slice(0, 150) + "..."}<b> <i>Read {readMore ? "Less" : "More"}</i></b>
                     </div>
 
                 </div>
@@ -88,7 +93,8 @@ function PaperInformation(props) {
 
                 {loading && <p>Loading...</p>}
             </div>
-            }
+        }
+        
         </div>
     )
 

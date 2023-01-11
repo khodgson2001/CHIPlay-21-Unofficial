@@ -3,6 +3,8 @@
 /**
  * locations endpoint
  * 
+ * Currently WIP
+ * 
  * @author Kieran Hodgson
 */
 class Location extends Endpoint
@@ -16,14 +18,6 @@ class Location extends Endpoint
         $this->initialiseSQL();
 
         $unparsedLocationData = $db->executeSQL($this->sql, $this->params);
-
-        // create array of countries, containing states, containing cities, containing institutions, containing departments, containing authors, with id's of
-        //"country" => [ 
-        //"state" => [ 
-        //"city" => [ 
-        //"institution" => [ 
-        //"department" => [ 
-        //"author_id" => "author_id" ] ] ] ] ]
 
         $locationData = [];
 

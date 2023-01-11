@@ -17,7 +17,20 @@ abstract class Endpoint
     protected $params;
 
 
-    //Endpoint constructor - queries DB
+    /**
+     * Endpoint constructor
+     * 
+     * @param Request $req - The request object
+     * 
+     * Ensures that the parameters used in the request are valid,
+     * creates a database object, initialises the SQL and parameters
+     * for the endpoint, executes the SQL and sets the content
+     * 
+     * @var Database $db - The database object
+     * @var array $content - content from the query being made
+     * 
+     * @return void
+     */
     public function __construct($req)
     {
         $this->validateParams($this->endpointParams()); // make sure params are valid
@@ -30,8 +43,10 @@ abstract class Endpoint
         $this->setContent($content);
     }
 
+    // ---- GETTERS & SETTERS -----
+
     /**
-     * Set the value of sql
+     * Sets the value of sql
      */
     protected function setSql($sql)
     {
@@ -44,7 +59,6 @@ abstract class Endpoint
 
     /**
      * Set the value of content
-
      */
     public function setContent($content)
     {
@@ -67,9 +81,25 @@ abstract class Endpoint
     protected function getParams(){
         return $this->params;
     }
+    // ---- END GETTERS & SETTERS -----
+
+    /**
+     * Add collate nocase to sql
+     * 
+     * @param String $sql - sql query
+     * 
+     * @return String $sql
+     */
+    protected function sqlRmvCase($sql){
+        return $sql .= " COLLATE NOCASE";
+    }
 
     /**
      * set sql and params for endpoint
+     * 
+     * @var string $sql - sql query
+     * 
+     * @return void
      */
     protected function initialiseSQL()
     {
@@ -88,14 +118,16 @@ abstract class Endpoint
      * valid parameters for the endpoint
      * 
      * @param array $params An array of valid param names (e.g. ['id'])
+     * 
+     * @return void
+     * 
+     * @throws ClientErrorException if any params are invalid
      */
     protected function validateParams($params)
     {
         foreach ($_GET as $key => $value) {
             if (!in_array($key, $params)) {
-                http_response_code(400);
-                $output['message'] = "Invalid parameter: " . $key;
-                die(json_encode($output));
+                throw new ClientErrorException("Invalid parameter: " . $key, 400);
             }
         }
     }

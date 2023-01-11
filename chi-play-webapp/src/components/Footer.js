@@ -1,3 +1,12 @@
+/**
+ * Footer Component
+ * 
+ * Basic opacque footer at bottom of display
+ * 
+ * @author Kieran Hodgson
+ * 
+ */
+
 function Footer() {
     return (
         <footer className='bg-dark bg-opacity-75 text-white fixed-bottom'>

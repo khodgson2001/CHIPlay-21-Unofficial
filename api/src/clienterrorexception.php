@@ -2,5 +2,4 @@
 
 class ClientErrorException extends Exception{
 
-    
 }

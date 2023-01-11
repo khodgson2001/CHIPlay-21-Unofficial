@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Database class
+ * 
+ * @author Kieran Hodgson
+ * 
+ * @var $dbConnection - database connection
+ */
 class Database
 {
     private $dbConnection;

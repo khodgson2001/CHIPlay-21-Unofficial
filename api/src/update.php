@@ -12,6 +12,20 @@ use FirebaseJWT\Key;
 class Update extends Endpoint{
 
     
+
+    /**
+     * Constructor for the Update class
+     * 
+     * @param Request $request
+     * 
+     * @var Database $db - database object
+     * 
+     * validates the request method, the JWT set, the parameters used to update the paper
+     * connects to the database, executes the SQL, and returns confirmation once SQL has been
+     * executed
+     * 
+     * @return void
+     */
     public function __construct($request)
     {
         $request->validateRequestMethod(['POST']);
@@ -30,6 +44,15 @@ class Update extends Endpoint{
         ));
     }
 
+    /**
+     * Initialise the SQL to be executed
+     * 
+     * @var array $awards
+     * @var string $award_id
+     * @var string $sql - sql query
+     * 
+     * @return void
+     */
     protected function initialiseSQL(){
         $awards=['true'=>"true",'false'=> NULL];
         $award_id = $awards[strtolower($_POST['award'])];
@@ -41,6 +64,18 @@ class Update extends Endpoint{
         ));
     }
 
+
+    /**
+     * Validate JWT
+     * 
+     * @var string $key - secret key
+     * @var array $allHeaders - array of all headers
+     * @var string $authorizationHeader
+     * 
+     * @throws ClientErrorException when the JWT is not valid, or the issuer is not valid
+     * 
+     * @return void
+     */
     private function validateToken(){
 
         $key = SECRET;
@@ -71,6 +106,12 @@ class Update extends Endpoint{
         }
     }
 
+
+    /**
+     * Validate update parameters
+     * 
+     * @throws ClientErrorException when the award or paper_id parameter is not set, or if the award parameter is not valid
+     */
     private function validateUpdateParams(){
         if(!filter_has_var(INPUT_POST,'award')){
             throw new ClientErrorException("Award parameter required", 400);

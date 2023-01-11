@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Actor endpoint
+ * Author endpoint
  * 
  * @author Kieran Hodgson
 */
@@ -10,10 +10,9 @@ class Author extends Endpoint
     /**
      * initialiseSQL method
      * 
-     * @var String $sql - sql query that selects
-     * [author_id, first_name, middle_initial, last_name] from author table, country, city, institution, department
-     * 
+     * @var String $sql - sql query that will select [author_id, first_name, middle_initial, last_name] from author table
      * @var Array $sqlParams - blank sql params array
+     * @var String $where - blank where clause
      * 
      * Initialises the SQL query and parameters, the SQL query is set using the
      * setSQL method from the Endpoint class, the parameters are set using the
@@ -29,8 +28,7 @@ class Author extends Endpoint
      * to select the author with the id specified in the id param that has written
      * the paper with the id specified in the paper_id param
      * 
-     * If the id param and the paper_id param are both not set, the query is
-     * modified to select all authors
+     * @return void
      */
     protected function initialiseSQL()
     {
@@ -40,9 +38,9 @@ class Author extends Endpoint
 
         if (filter_has_var(INPUT_GET, 'id')) {
             if (isset($where)) {
-                $where .= " AND author_id = :author_id";
+                $where .= " AND author.author_id = :author_id";
             } else {
-                $where = " WHERE author_id = :author_id";
+                $where = " WHERE author.author_id = :author_id";
             }
             $sqlParams['author_id'] = $_GET['id'];
         }
@@ -67,6 +65,8 @@ class Author extends Endpoint
 
     /**
      * array of all available params for the endpoint
+     * 
+     * @return Array - array of all available params for the endpoint
      */
     protected function endpointParams()
     {

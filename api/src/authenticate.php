@@ -11,18 +11,22 @@ use FirebaseJWT\JWT;
 class Authenticate extends Endpoint
 {
     /**
-     * Constructor class, takes no parameters
+     * Constructor class
+     * 
      * @var Database $db  - database connection
      * @var Array $queryResult - returned from querying $db
      * @var Array $data - contains the JWT for the account
      * 
-     * Class validates params passed in via authorisation header,
-     * creates new connection to db
+     * Class validates params passed in via authorisation header through validateAuthParameters method,
+     * creates a new connection to the specified database,
      * queries the db using getSQL method from Endpoint class
      * and applies parameters from getParams from Endpoint class
      * username and password is then validated where they are both present
      * in the database, if not a ClientErrorException is thrown with correct status code.
      * A JWT is then created and returned to the user.
+     * 
+     * @return void
+     * @throws ClientErrorException - if username or password is not present
      */
     public function __construct()
     {
@@ -44,17 +48,20 @@ class Authenticate extends Endpoint
 
     /**
      * Creates a JWT for the user
-     * @var Array $queryResult - returned from querying $db
+     * 
+     * @param Array $queryResult - returned from querying $db
+     * 
      * @var String $secretKey - secret key used to encode JWT, defined in index.php
      * @var Int $time - current time
      * @var Array $tokenPayload - contains the payload for the JWT
      * @var String $jwt - JWT for the user, encoded using HS256
      * 
-     * @return String $jwt - JWT for the user
-     * 
      * Creates a JWT for the user, using the username and account_id from the database
      * as the subject of the JWT. The JWT is encoded using HS256 and the secret key
      * defined in index.php
+     * 
+     * @return String $jwt - JWT for the user
+     * 
      */
     private function createJWT($queryResult)
     {
@@ -73,11 +80,14 @@ class Authenticate extends Endpoint
     /**
      * Validates the parameters passed in via the authorisation header
      * 
-     * @throws ClientErrorException - if username or password is not present
-     * 
      * Validates the parameters passed in via the authorisation header
      * if username or password is not present, a ClientErrorException is thrown
      * with a 401 status code
+     * 
+     * @return void
+     * 
+     * @throws ClientErrorException - if username or password is not present
+     * 
      */
     private function validateAuthParameters()
     {
@@ -87,13 +97,15 @@ class Authenticate extends Endpoint
     }
 
     /**
-     * Initialises the SQL query and parameters
+     * initialiseSQL Function
      * 
      * @var String $sql - SQL query to be executed
      * 
      * Initialises the SQL query and parameters, the SQL query is set using the
      * setSQL method from the Endpoint class, the parameters are set using the
      * setParams method from the Endpoint class
+     * 
+     * @return void
      */
     protected function initialiseSQL()
     {
@@ -106,12 +118,16 @@ class Authenticate extends Endpoint
 
     /**
      * Validates the username
-     * @var Array $data - returned from querying $db
      * 
-     * @throws ClientErrorException - if username is not present
+     * @param Array $data - returned from querying $db
+     * 
      * 
      * Validates the username, if username is not present, a ClientErrorException is thrown
      * with a 401 status code
+     * 
+     * @return void
+     * 
+     * @throws ClientErrorException - if username is not present
      */
     private function validateUsername($data)
     {
@@ -122,12 +138,15 @@ class Authenticate extends Endpoint
 
     /**
      * Validates the password
-     * @var Array $data - returned from querying $db
      * 
-     * @throws ClientErrorException - if password is not present
+     * @param Array $data - returned from querying $db
      * 
      * Validates the password, if password is not present, a ClientErrorException is thrown
      * with a 401 status code
+     *      
+     * @return void
+     * 
+     * @throws ClientErrorException - if password is not present
      */
     private function validatePassword($data)
     {
