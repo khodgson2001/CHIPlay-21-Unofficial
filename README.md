@@ -28,6 +28,7 @@ Application Link: <http://unn-w20002249.newnumyspace.co.uk/kf6012/app>
 #### API Links
 
 Authenticate Endpoint: <http://unn-w20002249.newnumyspace.co.uk/kf6012/api/auth>
+
 Update Endpoint: <http://unn-w20002249.newnumyspace.co.uk/kf6012/api/update>
 
 #### Web Application
@@ -41,5 +42,6 @@ Documentation Endpoint: <http://unn-w20002249.newnumyspace.co.uk/kf6012/docs>
 ## Essential information for using the application
 
 The update page does update the parameters, however the content displayed does not update without refreshing the application.
+
 This works fine on a local server running the development version of the application, however when you refresh on NewNUMyspace running the
 staged/built version, you recieve a 404 error from the server. Fix is to navigate to the home page, and refresh, and then to admin.
