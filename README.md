@@ -10,9 +10,13 @@
 ### Task 1 - API
 
 Base Endpoint: <http://unn-w20002249.newnumyspace.co.uk/kf6012/api>
+
 Affiliation Endpoint: <http://unn-w20002249.newnumyspace.co.uk/kf6012/api/affiliation>
+
 Author Endpoint: <http://unn-w20002249.newnumyspace.co.uk/kf6012/api/author>
+
 Location Endpoint: <http://unn-w20002249.newnumyspace.co.uk/kf6012/api/location>
+
 Paper Endpoint: <http://unn-w20002249.newnumyspace.co.uk/kf6012/api/paper>
 
 ### Task 2 - Web Application
