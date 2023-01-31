@@ -1,4 +1,4 @@
-# KF6012 - Web API Coursework
+# CHIPlay Unofficial Web API & Application
 
 ## Student Information
 
